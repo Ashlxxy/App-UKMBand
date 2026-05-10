@@ -198,6 +198,8 @@ class _SongManageTile extends StatelessWidget {
               children: [
                 Text(
                   song.title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     fontWeight: FontWeight.w900,
                     fontSize: 16,
@@ -205,21 +207,36 @@ class _SongManageTile extends StatelessWidget {
                 ),
                 Text(
                   song.artist,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     color: AppColors.muted,
                     fontSize: 13,
                   ),
                 ),
                 const SizedBox(height: 4),
-                Row(
+                Wrap(
+                  spacing: 12,
+                  runSpacing: 4,
                   children: [
-                    const Icon(Icons.headset_rounded, size: 12, color: AppColors.muted),
-                    const SizedBox(width: 4),
-                    Text('${song.plays} plays', style: const TextStyle(fontSize: 11, color: AppColors.muted)),
-                    const SizedBox(width: 12),
-                    const Icon(Icons.favorite_rounded, size: 12, color: AppColors.muted),
-                    const SizedBox(width: 4),
-                    Text('${song.likes} likes', style: const TextStyle(fontSize: 11, color: AppColors.muted)),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.headset_rounded, size: 12, color: AppColors.muted),
+                        const SizedBox(width: 4),
+                        Text('${song.plays} plays',
+                            style: const TextStyle(fontSize: 11, color: AppColors.muted)),
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.favorite_rounded, size: 12, color: AppColors.muted),
+                        const SizedBox(width: 4),
+                        Text('${song.likes} likes',
+                            style: const TextStyle(fontSize: 11, color: AppColors.muted)),
+                      ],
+                    ),
                   ],
                 ),
               ],
