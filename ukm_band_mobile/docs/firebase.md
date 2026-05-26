@@ -145,3 +145,10 @@ Komentar dan reply lagu. Reply memakai `parent_id`.
    `songs.comments_count`.
 8. Upload avatar, cover, dan audio masuk ke Firebase Storage, lalu URL-nya
    disimpan ke Firestore.
+
+## Catatan Query
+
+Query Firestore dibuat sederhana supaya setup awal tidak perlu composite index
+manual. Data playlist, history, dan komentar difilter dari Firestore, lalu
+diurutkan di aplikasi Flutter. Kalau data sudah sangat besar, bagian ini bisa
+diubah lagi ke query `orderBy` dengan composite index Firestore.

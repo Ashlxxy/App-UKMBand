@@ -54,7 +54,7 @@ class ProfileScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: AppColors.accentHot.withOpacity(0.3),
+                        color: AppColors.accentHot.withValues(alpha: 0.3),
                         width: 2,
                       ),
                     ),
@@ -70,7 +70,7 @@ class ProfileScreen extends StatelessWidget {
                 Text(
                   user?.name ?? 'Pengguna',
                   style: const TextStyle(
-                    fontSize: 28, 
+                    fontSize: 28,
                     fontWeight: FontWeight.w900,
                     letterSpacing: 1.1,
                   ),
@@ -80,13 +80,13 @@ class ProfileScreen extends StatelessWidget {
                 Text(
                   user?.email ?? '-',
                   style: const TextStyle(
-                    fontSize: 16, 
+                    fontSize: 16,
                     color: AppColors.muted,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 const SizedBox(height: 48),
-                
+
                 // Menu Card
                 AppGlassCard(
                   padding: EdgeInsets.zero,
@@ -126,7 +126,8 @@ class ProfileScreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const AdminDashboardScreen(),
+                                builder: (context) =>
+                                    const AdminDashboardScreen(),
                               ),
                             );
                           },
@@ -135,9 +136,9 @@ class ProfileScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                
+
                 const SizedBox(height: 48),
-                
+
                 // Logout Button
                 SizedBox(
                   width: double.infinity,
@@ -166,8 +167,13 @@ class ProfileScreen extends StatelessWidget {
                           )
                         : const Icon(Icons.logout_rounded),
                     label: Text(
-                      authProvider.isLoading ? 'MEMPROSES...' : 'KELUAR (LOG OUT)',
-                      style: const TextStyle(fontWeight: FontWeight.w900, letterSpacing: 1.1),
+                      authProvider.isLoading
+                          ? 'MEMPROSES...'
+                          : 'KELUAR (LOG OUT)',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 1.1,
+                      ),
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFB71C1C),

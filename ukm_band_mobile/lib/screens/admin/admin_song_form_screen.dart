@@ -26,9 +26,15 @@ class _AdminSongFormScreenState extends State<AdminSongFormScreen> {
     super.initState();
     _titleController = TextEditingController(text: widget.song?.title ?? '');
     _artistController = TextEditingController(text: widget.song?.artist ?? '');
-    _descController = TextEditingController(text: widget.song?.description ?? '');
-    _coverPathController = TextEditingController(text: widget.song?.coverPath ?? '');
-    _filePathController = TextEditingController(text: widget.song?.filePath ?? '');
+    _descController = TextEditingController(
+      text: widget.song?.description ?? '',
+    );
+    _coverPathController = TextEditingController(
+      text: widget.song?.coverPath ?? '',
+    );
+    _filePathController = TextEditingController(
+      text: widget.song?.filePath ?? '',
+    );
   }
 
   @override
@@ -52,8 +58,12 @@ class _AdminSongFormScreenState extends State<AdminSongFormScreen> {
           title: _titleController.text,
           artist: _artistController.text,
           description: _descController.text,
-          coverPath: _coverPathController.text.isNotEmpty ? _coverPathController.text : null,
-          filePath: _filePathController.text.isNotEmpty ? _filePathController.text : null,
+          coverPath: _coverPathController.text.isNotEmpty
+              ? _coverPathController.text
+              : null,
+          filePath: _filePathController.text.isNotEmpty
+              ? _filePathController.text
+              : null,
         );
       } else {
         await context.read<MusicProvider>().addSong(
@@ -64,18 +74,24 @@ class _AdminSongFormScreenState extends State<AdminSongFormScreen> {
           filePath: _filePathController.text,
         );
       }
-      
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(widget.song != null ? 'Lagu berhasil diperbarui' : 'Lagu berhasil ditambahkan')),
+          SnackBar(
+            content: Text(
+              widget.song != null
+                  ? 'Lagu berhasil diperbarui'
+                  : 'Lagu berhasil ditambahkan',
+            ),
+          ),
         );
         Navigator.pop(context);
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Gagal menyimpan lagu: $e')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Gagal menyimpan lagu: $e')));
       }
     } finally {
       if (mounted) setState(() => _isLoading = false);
@@ -116,14 +132,22 @@ class _AdminSongFormScreenState extends State<AdminSongFormScreen> {
                           children: [
                             TextFormField(
                               controller: _titleController,
-                              decoration: const InputDecoration(labelText: 'Judul Lagu'),
-                              validator: (val) => val == null || val.isEmpty ? 'Judul tidak boleh kosong' : null,
+                              decoration: const InputDecoration(
+                                labelText: 'Judul Lagu',
+                              ),
+                              validator: (val) => val == null || val.isEmpty
+                                  ? 'Judul tidak boleh kosong'
+                                  : null,
                             ),
                             const SizedBox(height: 16),
                             TextFormField(
                               controller: _artistController,
-                              decoration: const InputDecoration(labelText: 'Artis / Band'),
-                              validator: (val) => val == null || val.isEmpty ? 'Artis tidak boleh kosong' : null,
+                              decoration: const InputDecoration(
+                                labelText: 'Artis / Band',
+                              ),
+                              validator: (val) => val == null || val.isEmpty
+                                  ? 'Artis tidak boleh kosong'
+                                  : null,
                             ),
                           ],
                         ),
@@ -170,13 +194,27 @@ class _AdminSongFormScreenState extends State<AdminSongFormScreen> {
                             style: FilledButton.styleFrom(
                               backgroundColor: AppColors.accentHot,
                               padding: const EdgeInsets.symmetric(vertical: 18),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
                             ),
                             child: _isLoading
-                                ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                                ? const SizedBox(
+                                    width: 24,
+                                    height: 24,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      color: Colors.white,
+                                    ),
+                                  )
                                 : Text(
-                                    isEdit ? 'Simpan Perubahan' : 'Upload Sekarang',
-                                    style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
+                                    isEdit
+                                        ? 'Simpan Perubahan'
+                                        : 'Upload Sekarang',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 16,
+                                    ),
                                   ),
                           ),
                         ),
@@ -193,11 +231,14 @@ class _AdminSongFormScreenState extends State<AdminSongFormScreen> {
     );
   }
 
-  Widget _buildInputCard({required String title, required List<Widget> children}) {
+  Widget _buildInputCard({
+    required String title,
+    required List<Widget> children,
+  }) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: AppColors.card.withOpacity(0.5),
+        color: AppColors.card.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(24),
         border: Border.all(color: AppColors.line, width: 1.5),
       ),

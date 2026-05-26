@@ -248,12 +248,13 @@ class FirebaseBackendService {
     final songsById = await _songsById();
     final snapshot = await _playlists
         .where('user_uid', isEqualTo: user.uid)
-        .orderBy('updated_at', descending: true)
         .get();
-
-    return snapshot.docs
+    final playlists = snapshot.docs
         .map((doc) => _playlistFromDoc(doc, songsById: songsById))
         .toList();
+
+    playlists.sort((a, b) => b.id.compareTo(a.id));
+    return playlists;
   }
 
   Future<Playlist> createPlaylist(String name) async {
@@ -332,14 +333,19 @@ class FirebaseBackendService {
     final songsById = await _songsById();
     final snapshot = await _histories
         .where('user_uid', isEqualTo: user.uid)
-        .orderBy('played_at', descending: true)
         .get();
-
-    return snapshot.docs.map((doc) {
+    final entries = snapshot.docs.map((doc) {
       final data = _normalized(doc.data());
       final songId = _intValue(data['song_id']);
       return HistoryEntry.fromJson({...data, 'song': songsById[songId]});
     }).toList();
+
+    entries.sort((a, b) {
+      final left = a.playedAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+      final right = b.playedAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+      return right.compareTo(left);
+    });
+    return entries;
   }
 
   Future<void> recordPlay(int songId) async {
@@ -387,17 +393,18 @@ class FirebaseBackendService {
   }
 
   Future<List<SongComment>> fetchComments(int songId) async {
-    final snapshot = await _comments
-        .where('song_id', isEqualTo: songId)
-        .orderBy('created_at', descending: true)
-        .get();
+    final snapshot = await _comments.where('song_id', isEqualTo: songId).get();
     final rows = snapshot.docs
         .map(
           (doc) =>
               _normalized({'id': _intValue(doc.data()['id']), ...doc.data()}),
         )
         .toList();
-    final parents = rows.where((row) => row['parent_id'] == null).toList();
+    final parents = rows.where((row) => row['parent_id'] == null).toList()
+      ..sort(
+        (a, b) =>
+            b['created_at'].toString().compareTo(a['created_at'].toString()),
+      );
 
     return parents.map((parent) {
       final replies =

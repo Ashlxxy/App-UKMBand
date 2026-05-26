@@ -56,7 +56,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             title: 'Download via Wi-Fi Saja',
                             value: _downloadWifiOnly,
                             icon: Icons.wifi_rounded,
-                            onChanged: (val) => setState(() => _downloadWifiOnly = val),
+                            onChanged: (val) =>
+                                setState(() => _downloadWifiOnly = val),
                           ),
                         ],
                       ),
@@ -71,7 +72,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         subtitle: 'Dapatkan info rilis lagu terbaru',
                         value: _notificationsEnabled,
                         icon: Icons.notifications_active_rounded,
-                        onChanged: (val) => setState(() => _notificationsEnabled = val),
+                        onChanged: (val) =>
+                            setState(() => _notificationsEnabled = val),
                       ),
                     ),
                     const SizedBox(height: 26),
@@ -123,7 +125,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
-            const Text('• Masalah pemutaran lagu\n• Kesalahan data profil\n• Saran dan kritik'),
+            const Text(
+              '• Masalah pemutaran lagu\n• Kesalahan data profil\n• Saran dan kritik',
+            ),
             const SizedBox(height: 20),
             const Text(
               'Hubungi Admin via Email:',
@@ -131,7 +135,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             const Text(
               'admin.ukmband.telu@gmail.com',
-              style: TextStyle(color: AppColors.accentHot, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: AppColors.accentHot,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
@@ -160,9 +167,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
               mainAxisSize: MainAxisSize.min,
               children: ['Hemat Data', 'Normal', 'Tinggi', 'Lossless'].map((q) {
                 return ListTile(
-                  title: Text(q, style: const TextStyle(fontWeight: FontWeight.w600)),
+                  title: Text(
+                    q,
+                    style: const TextStyle(fontWeight: FontWeight.w600),
+                  ),
                   trailing: _audioQuality == q
-                      ? const Icon(Icons.check_circle_rounded, color: AppColors.accentHot)
+                      ? const Icon(
+                          Icons.check_circle_rounded,
+                          color: AppColors.accentHot,
+                        )
                       : null,
                   onTap: () {
                     setState(() => _audioQuality = q);
@@ -217,8 +230,12 @@ class _SettingsTile extends StatelessWidget {
     return ListTile(
       leading: Icon(icon, color: AppColors.muted),
       title: Text(title, style: const TextStyle(fontWeight: FontWeight.w700)),
-      subtitle: subtitle != null ? Text(subtitle!, style: const TextStyle(color: AppColors.muted)) : null,
-      trailing: onTap != null ? const Icon(Icons.chevron_right_rounded, color: AppColors.muted) : null,
+      subtitle: subtitle != null
+          ? Text(subtitle!, style: const TextStyle(color: AppColors.muted))
+          : null,
+      trailing: onTap != null
+          ? const Icon(Icons.chevron_right_rounded, color: AppColors.muted)
+          : null,
       onTap: onTap,
     );
   }
@@ -244,11 +261,13 @@ class _SettingsSwitchTile extends StatelessWidget {
     return ListTile(
       leading: Icon(icon, color: AppColors.muted),
       title: Text(title, style: const TextStyle(fontWeight: FontWeight.w700)),
-      subtitle: subtitle != null ? Text(subtitle!, style: const TextStyle(color: AppColors.muted)) : null,
+      subtitle: subtitle != null
+          ? Text(subtitle!, style: const TextStyle(color: AppColors.muted))
+          : null,
       trailing: Switch(
         value: value,
         onChanged: onChanged,
-        activeColor: AppColors.accentHot,
+        activeThumbColor: AppColors.accentHot,
       ),
     );
   }

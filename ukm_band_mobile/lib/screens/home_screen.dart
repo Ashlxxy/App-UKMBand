@@ -203,7 +203,7 @@ class _HomeHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<AuthProvider>().user;
-    
+
     ImageProvider avatar;
     if (user?.avatarUrl != null) {
       avatar = NetworkImage(user!.avatarUrl!);
@@ -243,7 +243,7 @@ class _HomeHeader extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                color: AppColors.accentHot.withOpacity(0.3),
+                color: AppColors.accentHot.withValues(alpha: 0.3),
                 width: 2,
               ),
             ),
@@ -331,7 +331,8 @@ class _HeroPanel extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Wrap(
-                                    crossAxisAlignment: WrapCrossAlignment.center,
+                                    crossAxisAlignment:
+                                        WrapCrossAlignment.center,
                                     spacing: 8,
                                     children: [
                                       Container(
@@ -414,7 +415,7 @@ class _HeroPanel extends StatelessWidget {
                             ),
                             _InfoChip(
                               icon: Icons.mode_comment_rounded,
-                              label: '${featured?.commentsCount ?? 0} comments',
+                              label: '${featured.commentsCount} comments',
                             ),
                             const _InfoChip(
                               icon: Icons.bolt_rounded,

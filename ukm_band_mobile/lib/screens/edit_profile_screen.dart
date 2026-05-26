@@ -20,7 +20,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
-  
+
   XFile? _selectedImage;
   bool _isLoading = false;
 
@@ -81,7 +81,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(authProvider.errorMessage ?? 'Gagal memperbarui profil'),
+          content: Text(
+            authProvider.errorMessage ?? 'Gagal memperbarui profil',
+          ),
           backgroundColor: AppColors.accentHot,
         ),
       );
@@ -91,7 +93,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<AuthProvider>().user;
-    
+
     return Scaffold(
       body: Container(
         height: double.infinity,
@@ -112,7 +114,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 floating: true,
               ),
               SliverPadding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24.0,
+                  vertical: 20.0,
+                ),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
                     Form(
@@ -131,18 +136,32 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       border: Border.all(
-                                        color: AppColors.accentHot.withOpacity(0.3),
+                                        color: AppColors.accentHot.withValues(
+                                          alpha: 0.3,
+                                        ),
                                         width: 2,
                                       ),
                                     ),
                                     child: ClipOval(
                                       child: _selectedImage != null
                                           ? (kIsWeb
-                                              ? Image.network(_selectedImage!.path, fit: BoxFit.cover)
-                                              : Image.file(File(_selectedImage!.path), fit: BoxFit.cover))
+                                                ? Image.network(
+                                                    _selectedImage!.path,
+                                                    fit: BoxFit.cover,
+                                                  )
+                                                : Image.file(
+                                                    File(_selectedImage!.path),
+                                                    fit: BoxFit.cover,
+                                                  ))
                                           : (user?.avatarUrl != null
-                                              ? Image.network(user!.avatarUrl!, fit: BoxFit.cover)
-                                              : Image.asset('assets/img/logo.png', fit: BoxFit.cover)),
+                                                ? Image.network(
+                                                    user!.avatarUrl!,
+                                                    fit: BoxFit.cover,
+                                                  )
+                                                : Image.asset(
+                                                    'assets/img/logo.png',
+                                                    fit: BoxFit.cover,
+                                                  )),
                                     ),
                                   ),
                                   Positioned(
@@ -158,7 +177,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                             color: Colors.black26,
                                             blurRadius: 10,
                                             spreadRadius: 2,
-                                          )
+                                          ),
                                         ],
                                       ),
                                       child: const Icon(
@@ -178,7 +197,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               children: [
                                 TextFormField(
                                   controller: _nameController,
-                                  style: const TextStyle(fontWeight: FontWeight.w600),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                   decoration: const InputDecoration(
                                     labelText: 'Nama Pengguna',
                                     prefixIcon: Icon(Icons.person_rounded),
@@ -193,7 +214,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 const SizedBox(height: 24),
                                 TextFormField(
                                   controller: _emailController,
-                                  style: const TextStyle(fontWeight: FontWeight.w600),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                   decoration: const InputDecoration(
                                     labelText: 'Email',
                                     prefixIcon: Icon(Icons.email_rounded),
@@ -222,7 +245,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 borderRadius: BorderRadius.circular(24),
                               ),
                               elevation: 12,
-                              shadowColor: const Color(0xFFB71C1C).withOpacity(0.5),
+                              shadowColor: const Color(
+                                0xFFB71C1C,
+                              ).withValues(alpha: 0.5),
                             ),
                             child: _isLoading
                                 ? const SizedBox(

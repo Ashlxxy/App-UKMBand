@@ -835,7 +835,7 @@ class ApiService {
     }
 
     await _writeJsonList(_localUsersKey, users);
-    return AppUser.fromJson(users[index] as Map<String, dynamic>);
+    return AppUser.fromJson(users[index]);
   }
 
   Future<List<Song>> _localFetchSongs({String? query}) async {

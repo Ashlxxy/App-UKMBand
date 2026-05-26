@@ -54,7 +54,7 @@ class AdminDashboardScreen extends StatelessWidget {
                         child: Center(child: CircularProgressIndicator()),
                       );
                     }
-                    
+
                     final stats = snapshot.data ?? {};
                     final statsList = [
                       {
@@ -84,24 +84,22 @@ class AdminDashboardScreen extends StatelessWidget {
                     ];
 
                     return SliverGrid(
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 16,
-                        crossAxisSpacing: 16,
-                        mainAxisExtent: 150,
-                      ),
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          final item = statsList[index];
-                          return _StatCard(
-                            title: item['title'] as String,
-                            value: item['value'] as String,
-                            icon: item['icon'] as IconData,
-                            color: item['color'] as Color,
-                          );
-                        },
-                        childCount: statsList.length,
-                      ),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 16,
+                            crossAxisSpacing: 16,
+                            mainAxisExtent: 150,
+                          ),
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        final item = statsList[index];
+                        return _StatCard(
+                          title: item['title'] as String,
+                          value: item['value'] as String,
+                          icon: item['icon'] as IconData,
+                          color: item['color'] as Color,
+                        );
+                      }, childCount: statsList.length),
                     );
                   },
                 ),
@@ -124,11 +122,14 @@ class AdminDashboardScreen extends StatelessWidget {
                       const SizedBox(height: 16),
                       _AdminActionTile(
                         title: 'Kelola Daftar Lagu',
-                        subtitle: 'Tambah, edit, atau hapus lagu dari perpustakaan.',
+                        subtitle:
+                            'Tambah, edit, atau hapus lagu dari perpustakaan.',
                         icon: Icons.library_music_rounded,
                         onTap: () {
                           Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => const AdminSongListScreen()),
+                            MaterialPageRoute(
+                              builder: (_) => const AdminSongListScreen(),
+                            ),
                           );
                         },
                       ),
@@ -139,7 +140,9 @@ class AdminDashboardScreen extends StatelessWidget {
                         icon: Icons.cloud_upload_rounded,
                         onTap: () {
                           Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => const AdminSongFormScreen()),
+                            MaterialPageRoute(
+                              builder: (_) => const AdminSongFormScreen(),
+                            ),
                           );
                         },
                       ),
@@ -173,7 +176,7 @@ class _StatCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColors.card.withOpacity(0.5),
+        color: AppColors.card.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(24),
         border: Border.all(color: AppColors.line, width: 1.5),
       ),
@@ -232,7 +235,7 @@ class _AdminActionTile extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: AppColors.card.withOpacity(0.5),
+            color: AppColors.card.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: AppColors.line, width: 1.5),
           ),
@@ -241,7 +244,7 @@ class _AdminActionTile extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: AppColors.accentHot.withOpacity(0.1),
+                  color: AppColors.accentHot.withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(icon, color: AppColors.accentHot),

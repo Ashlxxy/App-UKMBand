@@ -260,9 +260,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                         ),
                       )
                     else ...[
-                      const _LibrarySectionTitle(
-                        title: 'Playlist Saya',
-                      ),
+                      const _LibrarySectionTitle(title: 'Playlist Saya'),
                       const SizedBox(height: 12),
                       if (music.playlists.isEmpty)
                         _EmptyLibraryCard(onCreate: _showCreatePlaylistSheet)
@@ -1131,14 +1129,8 @@ class _EmptyLibraryCard extends StatelessWidget {
 
 class _LibrarySectionTitle extends StatelessWidget {
   final String title;
-  final String? actionLabel;
-  final VoidCallback? onAction;
 
-  const _LibrarySectionTitle({
-    required this.title,
-    this.actionLabel,
-    this.onAction,
-  });
+  const _LibrarySectionTitle({required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -1152,12 +1144,6 @@ class _LibrarySectionTitle extends StatelessWidget {
             ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
           ),
         ),
-        if (actionLabel != null && onAction != null)
-          TextButton.icon(
-            onPressed: onAction,
-            icon: const Icon(Icons.add_rounded),
-            label: Text(actionLabel!),
-          ),
       ],
     );
   }

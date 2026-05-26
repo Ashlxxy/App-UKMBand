@@ -1282,7 +1282,10 @@ class _SongSeeker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double maxVal = duration.inMilliseconds.toDouble();
-    final double currentVal = position.inMilliseconds.toDouble().clamp(0.0, maxVal);
+    final double currentVal = position.inMilliseconds.toDouble().clamp(
+      0.0,
+      maxVal,
+    );
 
     return Column(
       children: [
@@ -1294,7 +1297,7 @@ class _SongSeeker extends StatelessWidget {
             activeTrackColor: AppColors.accentHot,
             inactiveTrackColor: AppColors.line,
             thumbColor: AppColors.accentHot,
-            overlayColor: AppColors.accentHot.withOpacity(0.12),
+            overlayColor: AppColors.accentHot.withValues(alpha: 0.12),
           ),
           child: Slider(
             value: currentVal,
@@ -1311,11 +1314,19 @@ class _SongSeeker extends StatelessWidget {
             children: [
               Text(
                 _formatDuration(position),
-                style: const TextStyle(color: AppColors.muted, fontSize: 12, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  color: AppColors.muted,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               Text(
                 _formatDuration(duration),
-                style: const TextStyle(color: AppColors.muted, fontSize: 12, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  color: AppColors.muted,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),
@@ -1324,4 +1335,3 @@ class _SongSeeker extends StatelessWidget {
     );
   }
 }
-

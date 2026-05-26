@@ -24,12 +24,16 @@ class _AdminSongListScreenState extends State<AdminSongListScreen> {
   }
 
   Future<void> _deleteSong(BuildContext context, Song song) async {
+    final musicProvider = context.read<MusicProvider>();
+    final messenger = ScaffoldMessenger.of(context);
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: AppColors.ink,
         title: const Text('Hapus Lagu?'),
-        content: Text('Apakah Anda yakin ingin menghapus "${song.title}"? Tindakan ini tidak dapat dibatalkan.'),
+        content: Text(
+          'Apakah Anda yakin ingin menghapus "${song.title}"? Tindakan ini tidak dapat dibatalkan.',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
@@ -46,15 +50,15 @@ class _AdminSongListScreenState extends State<AdminSongListScreen> {
 
     if (confirmed == true && mounted) {
       try {
-        await context.read<MusicProvider>().removeSong(song.id);
+        await musicProvider.removeSong(song.id);
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
+          messenger.showSnackBar(
             const SnackBar(content: Text('Lagu berhasil dihapus')),
           );
         }
       } catch (e) {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
+          messenger.showSnackBar(
             SnackBar(content: Text('Gagal menghapus lagu: $e')),
           );
         }
@@ -93,7 +97,9 @@ class _AdminSongListScreenState extends State<AdminSongListScreen> {
                       IconButton(
                         onPressed: () {
                           Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => const AdminSongFormScreen()),
+                            MaterialPageRoute(
+                              builder: (_) => const AdminSongFormScreen(),
+                            ),
                           );
                         },
                         icon: const Icon(Icons.add_rounded),
@@ -101,7 +107,10 @@ class _AdminSongListScreenState extends State<AdminSongListScreen> {
                     ],
                   ),
                   SliverPadding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
                     sliver: SliverToBoxAdapter(
                       child: TextField(
                         controller: _searchController,
@@ -110,7 +119,7 @@ class _AdminSongListScreenState extends State<AdminSongListScreen> {
                           hintText: 'Cari judul atau artis...',
                           prefixIcon: const Icon(Icons.search_rounded),
                           filled: true,
-                          fillColor: AppColors.card.withOpacity(0.5),
+                          fillColor: AppColors.card.withValues(alpha: 0.5),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
                             borderSide: BorderSide.none,
@@ -122,26 +131,24 @@ class _AdminSongListScreenState extends State<AdminSongListScreen> {
                   SliverPadding(
                     padding: const EdgeInsets.fromLTRB(20, 10, 20, 40),
                     sliver: SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          final song = filteredSongs[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 12),
-                            child: _SongManageTile(
-                              song: song,
-                              onEdit: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (_) => AdminSongFormScreen(song: song),
-                                  ),
-                                );
-                              },
-                              onDelete: () => _deleteSong(context, song),
-                            ),
-                          );
-                        },
-                        childCount: filteredSongs.length,
-                      ),
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        final song = filteredSongs[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: _SongManageTile(
+                            song: song,
+                            onEdit: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      AdminSongFormScreen(song: song),
+                                ),
+                              );
+                            },
+                            onDelete: () => _deleteSong(context, song),
+                          ),
+                        );
+                      }, childCount: filteredSongs.length),
                     ),
                   ),
                   if (filteredSongs.isEmpty)
@@ -180,7 +187,7 @@ class _SongManageTile extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColors.card.withOpacity(0.5),
+        color: AppColors.card.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: AppColors.line, width: 1.5),
       ),
@@ -209,10 +216,7 @@ class _SongManageTile extends StatelessWidget {
                   song.artist,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: AppColors.muted,
-                    fontSize: 13,
-                  ),
+                  style: const TextStyle(color: AppColors.muted, fontSize: 13),
                 ),
                 const SizedBox(height: 4),
                 Wrap(
@@ -222,19 +226,37 @@ class _SongManageTile extends StatelessWidget {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(Icons.headset_rounded, size: 12, color: AppColors.muted),
+                        const Icon(
+                          Icons.headset_rounded,
+                          size: 12,
+                          color: AppColors.muted,
+                        ),
                         const SizedBox(width: 4),
-                        Text('${song.plays} plays',
-                            style: const TextStyle(fontSize: 11, color: AppColors.muted)),
+                        Text(
+                          '${song.plays} plays',
+                          style: const TextStyle(
+                            fontSize: 11,
+                            color: AppColors.muted,
+                          ),
+                        ),
                       ],
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(Icons.favorite_rounded, size: 12, color: AppColors.muted),
+                        const Icon(
+                          Icons.favorite_rounded,
+                          size: 12,
+                          color: AppColors.muted,
+                        ),
                         const SizedBox(width: 4),
-                        Text('${song.likes} likes',
-                            style: const TextStyle(fontSize: 11, color: AppColors.muted)),
+                        Text(
+                          '${song.likes} likes',
+                          style: const TextStyle(
+                            fontSize: 11,
+                            color: AppColors.muted,
+                          ),
+                        ),
                       ],
                     ),
                   ],
@@ -259,7 +281,10 @@ class _SongManageTile extends StatelessWidget {
                 iconSize: 20,
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
-                icon: const Icon(Icons.delete_rounded, color: AppColors.accentHot),
+                icon: const Icon(
+                  Icons.delete_rounded,
+                  color: AppColors.accentHot,
+                ),
                 tooltip: 'Hapus',
               ),
             ],
