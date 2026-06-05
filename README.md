@@ -40,6 +40,42 @@ Aplikasi mobile Flutter sudah memiliki mode backend Firebase yang bisa diaktifka
 | `ukm_band_mobile/lib/services/firebase_backend_service.dart` | Menangani Firebase Auth dan Cloud Firestore. |
 | `ukm_band_mobile/docs/firebase.md` | Dokumentasi alur data, struktur collection, dan cara menjalankan mode Firebase. |
 
+Contoh isi `ukm_band_mobile/lib/firebase_options.dart`:
+
+```dart
+class DefaultFirebaseOptions {
+  static FirebaseOptions get currentPlatform {
+    if (kIsWeb) {
+      return web;
+    }
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+        return android;
+      default:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions are not supported for this platform.',
+        );
+    }
+  }
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyDKNMYJyrOZiZivmRs5OCTexp-bDV0M-4M',
+    appId: '1:225306913053:web:109741a246a27d648519f4',
+    messagingSenderId: '225306913053',
+    projectId: 'tubes-apb-cdacd',
+    authDomain: 'tubes-apb-cdacd.firebaseapp.com',
+    measurementId: 'G-BJVQQ1JHRM',
+  );
+
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyBjQWUD4rGYU7XQLLw4bKdN4wVDpl3Y_yw',
+    appId: '1:225306913053:android:513b2cce2b3637a48519f4',
+    messagingSenderId: '225306913053',
+    projectId: 'tubes-apb-cdacd',
+  );
+}
+```
+
 ### Data yang Terhubung ke Firebase
 
 | Firebase | Data Aplikasi Mobile |
