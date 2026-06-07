@@ -1,0 +1,61 @@
+<svg width="1280" height="760" viewBox="0 0 1280 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="760" rx="28" fill="#0B0F19"/>
+  <rect x="32" y="32" width="1216" height="696" rx="22" fill="#111827" stroke="#273449" stroke-width="2"/>
+  <rect x="32" y="32" width="1216" height="72" rx="22" fill="#151F2E"/>
+  <text x="64" y="78" fill="#F8FAFC" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="700">Firebase Console - Cloud Firestore</text>
+  <text x="890" y="78" fill="#94A3B8" font-family="Segoe UI, Arial, sans-serif" font-size="17">Project: tubes-apb-cdacd</text>
+
+  <rect x="64" y="134" width="250" height="548" rx="16" fill="#0B1220" stroke="#334155"/>
+  <text x="90" y="174" fill="#CBD5E1" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700">Collections</text>
+
+  <rect x="86" y="204" width="206" height="52" rx="10" fill="#1D4ED8"/>
+  <text x="112" y="237" fill="#FFFFFF" font-family="Consolas, monospace" font-size="18">users</text>
+  <rect x="86" y="266" width="206" height="52" rx="10" fill="#172033"/>
+  <text x="112" y="299" fill="#E2E8F0" font-family="Consolas, monospace" font-size="18">songs</text>
+  <rect x="86" y="328" width="206" height="52" rx="10" fill="#172033"/>
+  <text x="112" y="361" fill="#E2E8F0" font-family="Consolas, monospace" font-size="18">playlists</text>
+  <rect x="86" y="390" width="206" height="52" rx="10" fill="#172033"/>
+  <text x="112" y="423" fill="#E2E8F0" font-family="Consolas, monospace" font-size="18">histories</text>
+  <rect x="86" y="452" width="206" height="52" rx="10" fill="#172033"/>
+  <text x="112" y="485" fill="#E2E8F0" font-family="Consolas, monospace" font-size="18">likes</text>
+  <rect x="86" y="514" width="206" height="52" rx="10" fill="#172033"/>
+  <text x="112" y="547" fill="#E2E8F0" font-family="Consolas, monospace" font-size="18">comments</text>
+  <text x="90" y="628" fill="#94A3B8" font-family="Segoe UI, Arial, sans-serif" font-size="15">Storage tidak dipakai.</text>
+  <text x="90" y="652" fill="#94A3B8" font-family="Segoe UI, Arial, sans-serif" font-size="15">File tetap pakai asset/path.</text>
+
+  <rect x="346" y="134" width="310" height="548" rx="16" fill="#0B1220" stroke="#334155"/>
+  <text x="372" y="174" fill="#CBD5E1" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700">Documents</text>
+  <rect x="368" y="204" width="266" height="48" rx="10" fill="#172033" stroke="#334155"/>
+  <text x="390" y="235" fill="#E2E8F0" font-family="Consolas, monospace" font-size="16">uid_ade_rainhard</text>
+  <rect x="368" y="264" width="266" height="48" rx="10" fill="#172033" stroke="#334155"/>
+  <text x="390" y="295" fill="#E2E8F0" font-family="Consolas, monospace" font-size="16">uid_user_demo</text>
+  <rect x="368" y="324" width="266" height="48" rx="10" fill="#172033" stroke="#334155"/>
+  <text x="390" y="355" fill="#E2E8F0" font-family="Consolas, monospace" font-size="16">uid_listener_01</text>
+  <text x="372" y="424" fill="#94A3B8" font-family="Segoe UI, Arial, sans-serif" font-size="15">Collection lain memakai pola:</text>
+  <text x="390" y="456" fill="#CBD5E1" font-family="Consolas, monospace" font-size="15">songs/1</text>
+  <text x="390" y="484" fill="#CBD5E1" font-family="Consolas, monospace" font-size="15">playlists/171...</text>
+  <text x="390" y="512" fill="#CBD5E1" font-family="Consolas, monospace" font-size="15">histories/uid_1</text>
+  <text x="390" y="540" fill="#CBD5E1" font-family="Consolas, monospace" font-size="15">likes/uid_1</text>
+  <text x="390" y="568" fill="#CBD5E1" font-family="Consolas, monospace" font-size="15">comments/171...</text>
+
+  <rect x="688" y="134" width="528" height="548" rx="16" fill="#0B1220" stroke="#334155"/>
+  <text x="714" y="174" fill="#CBD5E1" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700">Fields - contoh dokumen users/{uid}</text>
+  <rect x="714" y="204" width="476" height="418" rx="12" fill="#111827" stroke="#1E293B"/>
+  <text x="742" y="244" fill="#F8FAFC" font-family="Consolas, monospace" font-size="17">{</text>
+  <text x="770" y="276" fill="#93C5FD" font-family="Consolas, monospace" font-size="17">"id"</text>
+  <text x="830" y="276" fill="#CBD5E1" font-family="Consolas, monospace" font-size="17">: 5084312,</text>
+  <text x="770" y="308" fill="#93C5FD" font-family="Consolas, monospace" font-size="17">"uid"</text>
+  <text x="830" y="308" fill="#CBD5E1" font-family="Consolas, monospace" font-size="17">: "firebase-auth-uid",</text>
+  <text x="770" y="340" fill="#93C5FD" font-family="Consolas, monospace" font-size="17">"name"</text>
+  <text x="830" y="340" fill="#CBD5E1" font-family="Consolas, monospace" font-size="17">: "Ade Rainhard",</text>
+  <text x="770" y="372" fill="#93C5FD" font-family="Consolas, monospace" font-size="17">"email"</text>
+  <text x="830" y="372" fill="#CBD5E1" font-family="Consolas, monospace" font-size="17">: "user@example.com",</text>
+  <text x="770" y="404" fill="#93C5FD" font-family="Consolas, monospace" font-size="17">"role"</text>
+  <text x="830" y="404" fill="#CBD5E1" font-family="Consolas, monospace" font-size="17">: "user",</text>
+  <text x="770" y="436" fill="#93C5FD" font-family="Consolas, monospace" font-size="17">"created_at"</text>
+  <text x="890" y="436" fill="#CBD5E1" font-family="Consolas, monospace" font-size="17">: serverTimestamp,</text>
+  <text x="770" y="468" fill="#93C5FD" font-family="Consolas, monospace" font-size="17">"updated_at"</text>
+  <text x="890" y="468" fill="#CBD5E1" font-family="Consolas, monospace" font-size="17">: serverTimestamp</text>
+  <text x="742" y="500" fill="#F8FAFC" font-family="Consolas, monospace" font-size="17">}</text>
+  <text x="714" y="654" fill="#94A3B8" font-family="Segoe UI, Arial, sans-serif" font-size="15">Ini representasi README. Data asli terlihat langsung di Firebase Console saat app dijalankan dengan USE_FIREBASE=true.</text>
+</svg>

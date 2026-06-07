@@ -49,6 +49,23 @@ Kalau `USE_FIREBASE` tidak diaktifkan, app tetap memakai mode lama:
 
 ## Struktur Data Firestore
 
+## Status Integrasi Data Mobile
+
+| Area Data | Status Firebase | Collection / Layanan |
+| :--- | :--- | :--- |
+| Akun dan sesi user | Terintegrasi | Firebase Auth |
+| Profil user mobile | Terintegrasi | Cloud Firestore `users` |
+| Data lagu mobile | Terintegrasi | Cloud Firestore `songs` |
+| Playlist user | Terintegrasi | Cloud Firestore `playlists` |
+| Riwayat lagu diputar | Terintegrasi | Cloud Firestore `histories` |
+| Like lagu | Terintegrasi | Cloud Firestore `likes` |
+| Komentar dan reply | Terintegrasi | Cloud Firestore `comments` |
+| Upload file avatar, cover, audio | Tidak memakai Firebase | Storage sengaja tidak dipakai karena berbayar |
+| Web portal dan backend Laravel | Tidak dipindahkan ke Firebase | Tetap memakai Laravel dan database backend |
+
+Visual contoh Firebase Console tersedia di
+`docs/firebase/firebase_console_collections.svg`.
+
 ### `users/{uid}`
 
 Data profil user yang terhubung ke Firebase Auth.

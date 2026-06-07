@@ -28,7 +28,31 @@ Aplikasi mobile Flutter sudah memiliki mode backend Firebase yang bisa diaktifka
       <b>Peta Source Implementasi Firebase</b>
     </td>
   </tr>
+  <tr>
+    <td align="center" colspan="2">
+      <img src="docs/firebase/firebase_console_collections.svg" alt="Contoh Firebase Console Collections" width="100%"/><br/>
+      <b>Contoh Tampilan Data di Firebase Console</b>
+    </td>
+  </tr>
 </table>
+
+### Status Integrasi Firebase
+
+Data utama aplikasi mobile sudah diarahkan ke Firebase ketika aplikasi dijalankan dengan `--dart-define=USE_FIREBASE=true`.
+
+| Area Data | Status Firebase | Collection / Layanan |
+| :--- | :--- | :--- |
+| Akun dan sesi user | Terintegrasi | Firebase Auth |
+| Profil user mobile | Terintegrasi | Cloud Firestore `users` |
+| Data lagu mobile | Terintegrasi | Cloud Firestore `songs` |
+| Playlist user | Terintegrasi | Cloud Firestore `playlists` |
+| Riwayat lagu diputar | Terintegrasi | Cloud Firestore `histories` |
+| Like lagu | Terintegrasi | Cloud Firestore `likes` |
+| Komentar dan reply | Terintegrasi | Cloud Firestore `comments` |
+| Upload file avatar, cover, audio | Tidak memakai Firebase | Storage sengaja tidak dipakai karena berbayar |
+| Web portal dan backend Laravel | Tidak dipindahkan ke Firebase | Tetap memakai Laravel dan database backend |
+
+Jadi, yang sudah terintegrasi penuh adalah **data aplikasi mobile**. Yang tidak dipindahkan adalah file Storage dan sistem web/backend Laravel.
 
 ### Bentuk Source Firebase
 
