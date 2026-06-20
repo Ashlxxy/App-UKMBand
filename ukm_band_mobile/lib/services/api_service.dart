@@ -207,6 +207,14 @@ class ApiService {
     return _parseAuthResult(data);
   }
 
+  Future<AuthResult> loginWithGoogle() async {
+    if (useFirebase) {
+      return _firebase.loginWithGoogle();
+    }
+
+    throw ApiException('Login Google hanya tersedia jika menggunakan Firebase.');
+  }
+
   Future<AppUser> fetchMe() async {
     if (useFirebase) {
       return _firebase.fetchMe();

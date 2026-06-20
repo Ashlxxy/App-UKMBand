@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../models/app_user.dart';
 import '../models/history_entry.dart';
@@ -164,6 +165,29 @@ class FirebaseBackendService {
       return AuthResult(token: _tokenFor(user.uid), user: appUser);
     } on FirebaseAuthException catch (error) {
       throw ApiException(_authMessage(error));
+    }
+  }
+
+  Future<AuthResult> loginWithGoogle() async {
+    try {
+      final googleSignIn = GoogleSignIn.instance;
+      final googleUser = await googleSignIn.authenticate();
+      final googleAuth = googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+      );
+
+      final userCredential = await _auth.signInWithCredential(credential);
+      final user = userCredential.user!;
+      final appUser = await _upsertUser(user);
+      return AuthResult(token: _tokenFor(user.uid), user: appUser);
+    } on FirebaseAuthException catch (error) {
+      throw ApiException(_authMessage(error));
+    } catch (error) {
+      if (error.toString().contains('canceled') || error.toString().contains('cancelled')) {
+        throw ApiException('Login dengan Google dibatalkan.');
+      }
+      throw ApiException(error.toString());
     }
   }
 

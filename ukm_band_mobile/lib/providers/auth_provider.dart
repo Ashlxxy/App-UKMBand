@@ -74,6 +74,24 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
+  Future<bool> loginWithGoogle() async {
+    _isLoading = true;
+    _errorMessage = null;
+    notifyListeners();
+
+    try {
+      final result = await _apiService.loginWithGoogle();
+      await _setSession(result.token, result.user);
+      return true;
+    } catch (error) {
+      _errorMessage = error.toString();
+      return false;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
   Future<bool> register({
     required String name,
     required String email,
