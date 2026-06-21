@@ -44,7 +44,7 @@ class UKMBandApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'UKM Band Telkom',
+      title: 'UKM Band TelU',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.dark(),
       home: const AuthGate(),
