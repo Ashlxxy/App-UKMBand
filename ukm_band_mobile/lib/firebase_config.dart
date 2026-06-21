@@ -21,6 +21,9 @@ class FirebaseConfig {
   static const String iosBundleId = String.fromEnvironment(
     'FIREBASE_IOS_BUNDLE_ID',
   );
+  static const String googleClientId = String.fromEnvironment(
+    'GOOGLE_CLIENT_ID',
+  );
 
   static bool get isConfigured =>
       apiKey.isNotEmpty &&

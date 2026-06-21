@@ -11,6 +11,9 @@ import 'library_screen.dart';
 import 'search_screen.dart';
 import 'song_detail_screen.dart';
 
+import 'admin/admin_dashboard_screen.dart';
+import '../providers/auth_provider.dart';
+
 class MainShell extends StatefulWidget {
   const MainShell({super.key});
 
@@ -20,12 +23,6 @@ class MainShell extends StatefulWidget {
 
 class _MainShellState extends State<MainShell> {
   int _selectedIndex = 0;
-
-  static const List<Widget> _pages = <Widget>[
-    HomeScreen(),
-    SearchScreen(),
-    LibraryScreen(),
-  ];
 
   @override
   void initState() {
@@ -48,17 +45,55 @@ class _MainShellState extends State<MainShell> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AudioProvider>(
-      builder: (context, audioProvider, _) {
+    return Consumer2<AudioProvider, AuthProvider>(
+      builder: (context, audioProvider, authProvider, _) {
         final song = audioProvider.currentSong;
         final bottomSafeArea = MediaQuery.paddingOf(context).bottom;
         const navigationBarSpace = 88.0;
+
+        final isAdmin = authProvider.user?.role == 'admin';
+
+        final pages = <Widget>[
+          const HomeScreen(),
+          const SearchScreen(),
+          const LibraryScreen(),
+          if (isAdmin) const AdminDashboardScreen(),
+        ];
+
+        final destinations = <NavigationDestination>[
+          const NavigationDestination(
+            icon: Icon(Icons.home_outlined),
+            selectedIcon: Icon(Icons.home_rounded),
+            label: 'Beranda',
+          ),
+          const NavigationDestination(
+            icon: Icon(Icons.search_rounded),
+            selectedIcon: Icon(Icons.manage_search_rounded),
+            label: 'Cari',
+          ),
+          const NavigationDestination(
+            icon: Icon(Icons.library_music_outlined),
+            selectedIcon: Icon(Icons.library_music_rounded),
+            label: 'Pustaka',
+          ),
+          if (isAdmin)
+            const NavigationDestination(
+              icon: Icon(Icons.admin_panel_settings_outlined),
+              selectedIcon: Icon(Icons.admin_panel_settings_rounded),
+              label: 'Admin',
+            ),
+        ];
+
+        // Safely adjust selected index if it falls out of bounds (e.g. role changes)
+        if (_selectedIndex >= pages.length) {
+          _selectedIndex = pages.length - 1;
+        }
 
         return Scaffold(
           extendBody: true,
           body: Stack(
             children: [
-              IndexedStack(index: _selectedIndex, children: _pages),
+              IndexedStack(index: _selectedIndex, children: pages),
               if (song != null)
                 Positioned(
                   left: 14,
@@ -77,23 +112,7 @@ class _MainShellState extends State<MainShell> {
             onDestinationSelected: (index) {
               setState(() => _selectedIndex = index);
             },
-            destinations: const [
-              NavigationDestination(
-                icon: Icon(Icons.home_outlined),
-                selectedIcon: Icon(Icons.home_rounded),
-                label: 'Beranda',
-              ),
-              NavigationDestination(
-                icon: Icon(Icons.search_rounded),
-                selectedIcon: Icon(Icons.manage_search_rounded),
-                label: 'Cari',
-              ),
-              NavigationDestination(
-                icon: Icon(Icons.library_music_outlined),
-                selectedIcon: Icon(Icons.library_music_rounded),
-                label: 'Pustaka',
-              ),
-            ],
+            destinations: destinations,
           ),
         );
       },

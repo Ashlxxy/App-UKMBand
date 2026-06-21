@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter/foundation.dart';
 
+import '../firebase_config.dart';
 import '../models/app_user.dart';
 import '../models/history_entry.dart';
 import '../models/playlist.dart';
@@ -170,7 +172,12 @@ class FirebaseBackendService {
 
   Future<AuthResult> loginWithGoogle() async {
     try {
-      final googleUser = await GoogleSignIn().signIn();
+      final googleSignIn = GoogleSignIn(
+        clientId: kIsWeb && FirebaseConfig.googleClientId.isNotEmpty
+            ? FirebaseConfig.googleClientId
+            : null,
+      );
+      final googleUser = await googleSignIn.signIn();
       if (googleUser == null) {
         throw ApiException('Login dengan Google dibatalkan.');
       }
@@ -197,6 +204,20 @@ class FirebaseBackendService {
 
   Future<AppUser> fetchMe() async {
     return _upsertUser(_currentUser);
+  }
+
+  Future<List<AppUser>> fetchUsers({String? query}) async {
+    final snapshot = await _users.orderBy('name').get();
+    final q = query?.trim().toLowerCase();
+
+    return snapshot.docs
+        .map(_userFromDoc)
+        .where((user) {
+          if (q == null || q.isEmpty) return true;
+          return user.name.toLowerCase().contains(q) ||
+              user.email.toLowerCase().contains(q);
+        })
+        .toList();
   }
 
   Future<void> logout() {
@@ -593,7 +614,7 @@ class FirebaseBackendService {
         'uid': user.uid,
         'name': resolvedName,
         'email': user.email ?? '',
-        'role': 'user',
+        'role': user.email == 'admin@ukmband.telkom' ? 'admin' : 'user',
         'avatar_url': user.photoURL,
         'created_at': FieldValue.serverTimestamp(),
         'updated_at': FieldValue.serverTimestamp(),
@@ -601,12 +622,18 @@ class FirebaseBackendService {
       return _userFromDoc(await doc.get());
     }
 
-    await doc.set({
+    final updates = {
       'name': resolvedName,
       'email': user.email ?? '',
-      if (user.photoURL != null) 'avatar_url': user.photoURL,
       'updated_at': FieldValue.serverTimestamp(),
-    }, SetOptions(merge: true));
+    };
+    if (user.email == 'admin@ukmband.telkom') {
+      updates['role'] = 'admin';
+    }
+    if (user.photoURL != null) {
+      updates['avatar_url'] = user.photoURL!;
+    }
+    await doc.set(updates, SetOptions(merge: true));
     return _userFromDoc(await doc.get());
   }
 

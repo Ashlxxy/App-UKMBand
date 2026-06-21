@@ -228,6 +228,28 @@ class ApiService {
     return AppUser.fromJson(data['data'] as Map<String, dynamic>);
   }
 
+  Future<List<AppUser>> fetchUsers({String? query}) async {
+    if (useFirebase) {
+      return _firebase.fetchUsers(query: query);
+    }
+
+    if (localFirst || _isLocalSession) {
+      return _localFetchUsers(query: query);
+    }
+
+    final q = query?.trim();
+    final data = await _request(
+      method: 'GET',
+      path: q == null || q.isEmpty
+          ? '/admin/users'
+          : '/admin/users?q=${Uri.encodeQueryComponent(q)}',
+    );
+    final items = data['data'] as List<dynamic>? ?? [];
+    return items
+        .map((item) => AppUser.fromJson(item as Map<String, dynamic>))
+        .toList();
+  }
+
   Future<void> logout() async {
     if (useFirebase) {
       return _firebase.logout();
@@ -786,13 +808,6 @@ class ApiService {
 
     final appUser = AppUser.fromJson(matched);
 
-    if (appUser.role == 'admin') {
-      throw ApiException(
-        'Akses ditolak. Admin hanya dapat login melalui website.',
-        statusCode: 403,
-      );
-    }
-
     final token = _localTokenFor(appUser.id);
     _token = token;
     return AuthResult(token: token, user: appUser);
@@ -807,6 +822,21 @@ class ApiService {
       orElse: () => throw ApiException('User lokal tidak ditemukan.'),
     );
     return AppUser.fromJson(user);
+  }
+
+  Future<List<AppUser>> _localFetchUsers({String? query}) async {
+    await _ensureLocalSeed();
+    final users = await _readJsonList(_localUsersKey);
+    final q = query?.trim().toLowerCase();
+    
+    final filtered = q == null || q.isEmpty
+        ? users
+        : users.where((user) {
+            return user['name'].toString().toLowerCase().contains(q) ||
+                user['email'].toString().toLowerCase().contains(q);
+          }).toList();
+
+    return filtered.map((json) => AppUser.fromJson(json)).toList();
   }
 
   Future<AppUser> _localUpdateProfile({
