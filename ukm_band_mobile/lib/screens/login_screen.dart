@@ -93,11 +93,13 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const _FieldLabel('Email'),
+            const SizedBox(height: 8),
             TextFormField(
               controller: _emailController,
               keyboardType: TextInputType.emailAddress,
               decoration: const InputDecoration(
-                labelText: 'Email',
+                hintText: 'nama@email.com',
                 prefixIcon: Icon(Icons.email_rounded),
               ),
               validator: (value) {
@@ -107,12 +109,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 return null;
               },
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 20),
+            const _FieldLabel('Kata Sandi'),
+            const SizedBox(height: 8),
             TextFormField(
               controller: _passwordController,
               obscureText: true,
               decoration: const InputDecoration(
-                labelText: 'Kata Sandi',
+                hintText: '••••••••',
                 prefixIcon: Icon(Icons.lock_rounded),
               ),
               validator: (value) {
@@ -122,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 return null;
               },
             ),
-            const SizedBox(height: 22),
+            const SizedBox(height: 28),
             FilledButton.icon(
               onPressed: isLoading ? null : _login,
               icon: isLoading
@@ -168,6 +172,28 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _FieldLabel extends StatelessWidget {
+  final String text;
+
+  const _FieldLabel(this.text);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 4),
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: AppColors.cream,
+          fontSize: 13,
+          fontWeight: FontWeight.w700,
+          letterSpacing: 0.3,
         ),
       ),
     );
