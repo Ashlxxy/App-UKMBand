@@ -172,10 +172,14 @@ class FirebaseBackendService {
 
   Future<AuthResult> loginWithGoogle() async {
     try {
+      if (kIsWeb && FirebaseConfig.googleClientId.isEmpty) {
+        throw ApiException(
+          'Google Client ID belum dikonfigurasi. Tambahkan --dart-define=GOOGLE_CLIENT_ID=... saat menjalankan aplikasi.',
+        );
+      }
+
       final googleSignIn = GoogleSignIn(
-        clientId: kIsWeb && FirebaseConfig.googleClientId.isNotEmpty
-            ? FirebaseConfig.googleClientId
-            : null,
+        clientId: kIsWeb ? FirebaseConfig.googleClientId : null,
       );
       final googleUser = await googleSignIn.signIn();
       if (googleUser == null) {
