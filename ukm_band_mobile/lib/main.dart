@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'firebase_config.dart';
 import 'providers/auth_provider.dart';
 import 'providers/music_provider.dart';
@@ -15,11 +14,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (FirebaseConfig.enabled) {
     await Firebase.initializeApp(options: FirebaseConfig.options);
-    try {
-      await GoogleSignIn.instance.initialize();
-    } catch (e) {
-      debugPrint("Failed to initialize GoogleSignIn: $e");
-    }
   }
   final apiService = ApiService();
 
