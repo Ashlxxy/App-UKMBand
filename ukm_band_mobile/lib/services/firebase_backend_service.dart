@@ -170,10 +170,14 @@ class FirebaseBackendService {
 
   Future<AuthResult> loginWithGoogle() async {
     try {
-      final googleSignIn = GoogleSignIn.instance;
-      final googleUser = await googleSignIn.authenticate();
-      final googleAuth = googleUser.authentication;
+      final googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        throw ApiException('Login dengan Google dibatalkan.');
+      }
+
+      final googleAuth = await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
