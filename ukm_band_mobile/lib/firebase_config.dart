@@ -23,6 +23,7 @@ class FirebaseConfig {
   );
   static const String googleClientId = String.fromEnvironment(
     'GOOGLE_CLIENT_ID',
+    defaultValue: '225306913053-hbc9d9nneth46k7059r5hgn3vcb7af8b.apps.googleusercontent.com',
   );
 
   static bool get isConfigured =>
