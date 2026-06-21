@@ -144,23 +144,18 @@ class _LoginScreenState extends State<LoginScreen> {
               OutlinedButton.icon(
                 onPressed: isLoading ? null : _loginWithGoogle,
                 style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  side: BorderSide(color: Colors.white.withValues(alpha: 0.15)),
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.black87,
+                  side: const BorderSide(color: Colors.grey),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(24),
                   ),
                 ),
-                icon: const Icon(
-                  Icons.g_mobiledata_rounded,
-                  size: 28,
-                  color: Colors.white,
-                ),
+                icon: Image.asset('assets/img/google_logo.png', height: 24, width: 24),
                 label: const Text(
-                  'Masuk dengan Google',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  'Sign in with Google',
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
                 ),
               ),
             ],
