@@ -504,6 +504,27 @@ class _ActionPanel extends StatelessWidget {
               style: TextStyle(fontSize: 17, fontWeight: FontWeight.w900),
             ),
           ),
+          const SizedBox(height: 8),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const LoginScreen(
+                    initialEmail: 'admin@ukmband.telkom',
+                    initialPassword: 'admin123',
+                  ),
+                ),
+              );
+            },
+            child: const Text(
+              'Login sebagai Admin',
+              style: TextStyle(
+                color: AppColors.muted,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ],
       ),
     );

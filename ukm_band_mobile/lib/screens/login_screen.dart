@@ -8,7 +8,10 @@ import '../widgets/auth_stage.dart';
 import 'main_shell.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  final String? initialEmail;
+  final String? initialPassword;
+
+  const LoginScreen({super.key, this.initialEmail, this.initialPassword});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -16,8 +19,15 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  late final TextEditingController _emailController;
+  late final TextEditingController _passwordController;
+
+  @override
+  void initState() {
+    super.initState();
+    _emailController = TextEditingController(text: widget.initialEmail ?? '');
+    _passwordController = TextEditingController(text: widget.initialPassword ?? '');
+  }
 
   Future<void> _login() async {
     if (!_formKey.currentState!.validate()) {
