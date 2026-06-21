@@ -7,9 +7,9 @@ class AuthStage extends StatelessWidget {
   final String appBarTitle;
   final String title;
   final String subtitle;
-  final String badge;
+  final String? badge;
   final IconData icon;
-  final String infoText;
+  final String? infoText;
   final Widget child;
 
   const AuthStage({
@@ -17,9 +17,9 @@ class AuthStage extends StatelessWidget {
     required this.appBarTitle,
     required this.title,
     required this.subtitle,
-    required this.badge,
+    this.badge,
     required this.icon,
-    required this.infoText,
+    this.infoText,
     required this.child,
   });
 
@@ -72,27 +72,29 @@ class AuthStage extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                  vertical: 6,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: Colors.white.withValues(alpha: 0.08),
-                                  borderRadius: BorderRadius.circular(999),
-                                  border: Border.all(color: AppColors.line),
-                                ),
-                                child: Text(
-                                  badge,
-                                  style: const TextStyle(
-                                    color: AppColors.accentHot,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w900,
-                                    letterSpacing: 1.1,
+                              if (badge != null && badge!.isNotEmpty) ...[
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 6,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withValues(alpha: 0.08),
+                                    borderRadius: BorderRadius.circular(999),
+                                    border: Border.all(color: AppColors.line),
+                                  ),
+                                  child: Text(
+                                    badge!,
+                                    style: const TextStyle(
+                                      color: AppColors.accentHot,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w900,
+                                      letterSpacing: 1.1,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(height: 18),
+                                const SizedBox(height: 18),
+                              ],
                               Text(
                                 title,
                                 style: Theme.of(context).textTheme.headlineSmall
@@ -120,37 +122,39 @@ class AuthStage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 16),
-                AppGlassCard(
-                  padding: const EdgeInsets.all(14),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 42,
-                        height: 42,
-                        decoration: BoxDecoration(
-                          color: AppColors.accent.withValues(alpha: 0.16),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: const Icon(
-                          Icons.offline_pin_rounded,
-                          color: AppColors.accentHot,
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Text(
-                          infoText,
-                          style: const TextStyle(
-                            color: AppColors.cream,
-                            fontWeight: FontWeight.w700,
-                            height: 1.32,
+                if (infoText != null && infoText!.isNotEmpty) ...[
+                  const SizedBox(height: 16),
+                  AppGlassCard(
+                    padding: const EdgeInsets.all(14),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 42,
+                          height: 42,
+                          decoration: BoxDecoration(
+                            color: AppColors.accent.withValues(alpha: 0.16),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: const Icon(
+                            Icons.offline_pin_rounded,
+                            color: AppColors.accentHot,
                           ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Text(
+                            infoText!,
+                            style: const TextStyle(
+                              color: AppColors.cream,
+                              fontWeight: FontWeight.w700,
+                              height: 1.32,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                ],
                 const SizedBox(height: 16),
                 AppGlassCard(child: child),
               ],

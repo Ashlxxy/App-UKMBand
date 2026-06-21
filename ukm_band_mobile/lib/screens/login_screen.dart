@@ -86,10 +86,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return AuthStage(
       appBarTitle: 'Log In',
       title: 'Masuk ke Studio',
-      subtitle: 'Lanjutkan ritme komunitas dan buka koleksi lagu UKM Band.',
-      badge: 'MEMBER ACCESS',
+      subtitle: 'Jelajahi koleksi lagu UKM Band',
       icon: Icons.headphones_rounded,
-      infoText: 'Mode lokal aktif. Login demo: user@example.com / password.',
       child: Form(
         key: _formKey,
         child: Column(
