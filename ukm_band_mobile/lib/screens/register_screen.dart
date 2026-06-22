@@ -69,10 +69,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       appBarTitle: 'Daftar Sekarang',
       title: 'Buat Akun Baru',
       subtitle: 'Gabung ke ruang musik komunitas dan simpan aktivitasmu.',
-      badge: 'NEW MEMBER',
       icon: Icons.person_add_alt_1_rounded,
-      infoText:
-          'Mode lokal aktif. Akun disimpan di perangkat untuk demo lokal.',
       child: Form(
         key: _formKey,
         child: Column(
